@@ -7,7 +7,7 @@
 
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
-
+    <link rel="stylesheet"  type="text/css" href="/stylesheets/main.css">
     <title>Dumb stuff</title>
   </head>
   <body>
@@ -31,15 +31,26 @@
                         </ul>
             
                         <ul class="navbar-nav ml-auto">
-                            <li class="nav-item">
-                                <a class="nav-link" href="/">Login</a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link" href="/">Log Out</a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link" href="/">Sign up</a>
-                            </li>
+                            
+                            <%if(!currentUser){%>
+                                <li class="nav-item">
+                                    <a class="nav-link" href="/login">Login</a>
+                                </li>
+                                
+                                <li class="nav-item">
+                                    <a class="nav-link" href="/register">Sign up</a>
+                                </li>
+                            <%}else{%>
+                                <li id="" class="nav-item ">
+                                    <a class="nav-link" href="#">
+                                        Singed In As <%=currentUser.username%>
+                                    </a>
+                                
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link" href="/logout">Log Out</a>
+                                </li>
+                            <%}%>
             
                         </ul>
                     </div>
