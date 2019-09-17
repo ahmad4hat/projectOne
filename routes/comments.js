@@ -39,10 +39,15 @@ router.post("/",isLoggedin,(req,res)=>{
                 }
                 else
                 {
+                    comment.author.id=req.user._id;
+                    comment.author.username=req.user.username;
+                    comment.save();
+                    console.log("user------------"+req.user.username);
                     console.log("coments added to database");
                     console.log(comment);
                     campground.comments.push(comment);
                     campground.save();
+                    console.log(comment);
                     res.redirect("/campgrounds/"+campground._id);
 
                 }
