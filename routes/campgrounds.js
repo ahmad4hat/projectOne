@@ -18,12 +18,17 @@ router.get("/", function (req, res) {
 
 
 })
-router.post("/", function (req, res) {
+router.post("/", isLoggedin,function (req, res) {
+
+    var author={
+        id:req.user._id,
+        username:req.user.username
+    };
     var name = req.body.name;
     var image = req.body.image;
     var description=req.body.description;
-    var newCampground = { name: name, image: image,description:description};
-    console.log(newCampground); 0
+    var newCampground = {name,image,description,author};
+    console.log(newCampground); 
     Campground.create(newCampground, function (err, newCamp) {
         if (err) {
             console.log(err);
@@ -36,7 +41,7 @@ router.post("/", function (req, res) {
 
 })
 
-router.get("/new", function (req, res) {
+router.get("/new",isLoggedin ,function (req, res) {
     res.render("campgrounds/new.ejs");
 })
 
