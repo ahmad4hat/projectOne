@@ -7,6 +7,7 @@ var Comment                 = require("./models/comment");
 var passport                = require("passport");
 var User                    = require("./models/user");
 var LocalStrategy           = require("passport-local");
+var methodOverid            = require("method-override");
 
 
 //requring routes
@@ -20,15 +21,18 @@ var commentRoutes           =   require("./routes/comments"),
 
 mongoose.connect("mongodb://localhost:27017/yelp_camp", {
     useNewUrlParser: true,
-    useUnifiedTopology: true
+    useUnifiedTopology: true,
+   useFindAndModify:false
 });
-app.use(express.static(__dirname+"/public"))
+app.use(express.static(__dirname+"/public"));
+app.use(methodOverid("_method"));
+
 
 app.use(require("express-session")({
     secret:"reset base stuff",
     resave:false,
     saveUninitialized:false
-}))
+}));
 
 app.use(passport.initialize());
 app.use(passport.session());

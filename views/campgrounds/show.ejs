@@ -27,6 +27,11 @@
                             submitted by <strong><%=campground.author.username%></strong>
                         </em>
                     </p>
+                    <a class="btn btn-warning" href="/campgrounds/<%=campground._id%>/edit">Edit</a>
+                    
+                    <form class="d-inline" action="/campgrounds/<%=campground._id%>?_method=DELETE" method="post">
+                        <button class="btn btn-warning danger" type="submit">DELETE</button>
+                    </form>
                 </div>
             </div>
             <div class="card mt-3 bg-light p-3">
