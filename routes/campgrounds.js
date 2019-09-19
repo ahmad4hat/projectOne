@@ -30,7 +30,7 @@ router.post("/",middleware.isLoggedin,function (req, res) {
     var name = req.body.name;
     var image = req.body.image;
     var description=req.body.description;
-    var newCampground = {name,image,description,author};
+    var newCampground = {name,image,description,price:req.body.price,author};
     console.log(newCampground); 
     Campground.create(newCampground, function (err, newCamp) {
         if (err) {
@@ -61,7 +61,7 @@ router.get("/:id/edit",middleware.campgroundAuthenticator,(req,res)=>{
 
 
 router.put("/:id",middleware.campgroundAuthenticator,(req,res)=>{
-    Campground.findOneAndUpdate({_id:req.params.id},{name:req.body.name,image:req.body.image,description:req.body.description},(err,campground)=>{
+    Campground.findOneAndUpdate({_id:req.params.id},{name:req.body.name,price:req.body.price,image:req.body.image,description:req.body.description},(err,campground)=>{
         if(err)
         {
             console.log(err);
