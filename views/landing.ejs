@@ -1,9 +1,97 @@
 
-<% include partials/header %>
-<h1>landing page</h1>
-<p>This is yelp camp</p>
+<!doctype html>
+<html lang="en">
+  <head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <link rel="stylesheet"  type="text/css" href="/stylesheets/landing.css">
+    <title>Dumb stuff</title>
+  </head>
+  <body>
+        <nav class="navbar navbar-expand-lg navbar-light bg-light mb-2">
+                <div class="container-fluid">
+                    <a class="navbar-brand" href="/">Yelp Camp</a>
+                    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
+                        aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                        <span class="navbar-toggler-icon"></span>
+                    </button>
+            
+                    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                        <ul class="navbar-nav mr-auto">
+                            <li class="nav-item active">
+                                <a class="nav-link" href="#">Home <span class="sr-only">(current)</span></a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="#">Link</a>
+                            </li>
+            
+                        </ul>
+            
+                        <ul class="navbar-nav ml-auto">
+                            
+                            <%if(!currentUser){%>
+                                <li class="nav-item">
+                                    <a class="nav-link" href="/login">Login</a>
+                                </li>
+                                
+                                <li class="nav-item">
+                                    <a class="nav-link" href="/register">Sign up</a>
+                                </li>
+                            <%}else{%>
+                                <li id="" class="nav-item ">
+                                    <a class="nav-link" href="#">
+                                        Singed In As <%=currentUser.username%>
+                                    </a>
+                                
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link" href="/logout">Log Out</a>
+                                </li>
+                            <%}%>
+            
+                        </ul>
+                    </div>
+                </div>
+            
+            
+            </nav>
+
+               
+            <div class="container">
+                <%if(error && error.length>0){%>
+                <div class="alert alert-danger" role="alert">
+                    <%=error%>
+                  </div>
+                <%}%>
+                
+                <%if(success && success.length>0){%>
+                <div class="alert alert-success" role="alert">
+                    <%=success%>
+                </div>
+                <%}%>
+            </div>
+            
+
+            
 
 
-<a href="/campgrounds">view all the campgrounds</a>
+<div class="container stuff-on-page">
+        <div class="row justify-content-end">
+            <div class="col-lg-12 align-items-center mt-5 ">
+                <div id="content" class="p-3">
+                        <h1 class="text-center display-1">YELP CAMP</h1>
+                        <p class="display-4 text-center lead">Best Campgounds Around you</p>
+                    <a id="allcampgoundBotton" class="btn btn-lg btn-primary btn-block " href="/campgrounds">view all the campgrounds</a>
+                </div>
+
+            </div>
+        </div>
+</div>
+
+
 
 <% include partials/footer %>
