@@ -59,14 +59,4 @@ router.get("/logout",(req,res)=>{
     req.logout();
     res.redirect("/campgrounds");
 })
-
-
-function isLoggedin(req,res,next){
-    if(req.isAuthenticated())
-    {
-        return next();
-    }
-    res.redirect("/login");
-
-}
 module.exports=router;

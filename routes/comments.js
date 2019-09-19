@@ -3,9 +3,10 @@ var express=require("express");
 var router = express.Router({mergeParams:true});
 var Campground=require("../models/campground");
 var Comment=require("../models/comment");
+var middleware=require("../middleware");
 
 
-router.get("/new",isLoggedin,(req,res)=>{
+router.get("/new",middleware.isLoggedin,(req,res)=>{
     Campground.findById(req.params.id,(err,campground)=>{
         if(err)
         {
@@ -21,7 +22,7 @@ router.get("/new",isLoggedin,(req,res)=>{
     
 })
 
-router.post("/",isLoggedin,(req,res)=>{
+router.post("/",middleware.isLoggedin,(req,res)=>{
 
 
     console.log(req.body.comment);
@@ -56,7 +57,7 @@ router.post("/",isLoggedin,(req,res)=>{
     })
 })
 
-router.get("/:comment_id/edit",cheakCommentOwnerShip,(req,res)=>{
+router.get("/:comment_id/edit",middleware.cheakCommentOwnerShip,(req,res)=>{
 
     Comment.findById(req.params.comment_id,(err,comment)=>{
         if(err)
@@ -70,7 +71,7 @@ router.get("/:comment_id/edit",cheakCommentOwnerShip,(req,res)=>{
     })    
 })
 
-router.put("/:comment_id",cheakCommentOwnerShip,(req,res)=>{
+router.put("/:comment_id",middleware.cheakCommentOwnerShip,(req,res)=>{
     console.log(req.body.comment.text);
     console.log(req.params.id);
     // Comment.findByIdAndUpdate(fin,req.body.comment,(err,comment)=>{
@@ -96,7 +97,7 @@ router.put("/:comment_id",cheakCommentOwnerShip,(req,res)=>{
 });
 
 
-router.delete("/:comment_id",cheakCommentOwnerShip,(req,res)=>{
+router.delete("/:comment_id",middleware.cheakCommentOwnerShip,(req,res)=>{
     Comment.findByIdAndRemove(req.params.comment_id,(err)=>{
         if(err)
         {
@@ -106,47 +107,6 @@ router.delete("/:comment_id",cheakCommentOwnerShip,(req,res)=>{
         res.redirect("/campgrounds/"+req.params.id);
     })
 })
-
-function isLoggedin(req,res,next){
-    if(req.isAuthenticated())
-    {
-        return next();
-    }
-    res.redirect("/login");
-
-}
-
-function cheakCommentOwnerShip(req,res,next)
-{
-    if(req.isAuthenticated())
-    {
-        Comment.findById(req.params.comment_id,(err,comment)=>{
-           
-            if(err)
-            {
-                console.log(err);
-                res.redirect("back");
-            }
-            else
-            {
-                console.log(comment.author.id);
-                if(comment.author.id.equals(req.user._id)){
-                   next();
-                }
-                else
-                {
-                   res.redirect("back");
-                }
-                
-            }
-        });
-    }
-    else {
-        
-        res.redirect("back");
-    }
-
-}
 
 
 module.exports=router;
