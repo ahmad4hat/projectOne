@@ -7,7 +7,7 @@ var middlewareObject = {
             Campground.findById(req.params.id, (err, campground) => {
 
                 if (err) {
-                    console.log(err);
+                    req.flash("error","Campgoround not /Something went wrong with the data base");
                     res.redirect("back");
                 }
                 else {
@@ -15,6 +15,7 @@ var middlewareObject = {
                         next();
                     }
                     else {
+                        res.flash("error","You do not own this post , you don't have perrmission to do that");
                         res.redirect("back")
                     }
 
@@ -23,6 +24,7 @@ var middlewareObject = {
         }
         else {
 
+            req.flash("error","You need to Logged in to do that");
             res.redirect("back");
         }
     },
@@ -35,14 +37,16 @@ var middlewareObject = {
 
                 if (err) {
                     console.log(err);
+                    req.flash("error","Comment not found/Something went wrong with the data base");
                     res.redirect("back");
                 }
                 else {
-                    console.log(comment.author.id);
+
                     if (comment.author.id.equals(req.user._id)) {
                         next();
                     }
                     else {
+                        req.flash("error","Comment is not yours");
                         res.redirect("back");
                     }
 
@@ -50,7 +54,7 @@ var middlewareObject = {
             });
         }
         else {
-
+            req.flash("error","you need to be logged in");
             res.redirect("back");
         }
 
@@ -61,6 +65,7 @@ var middlewareObject = {
         if (req.isAuthenticated()) {
             return next();
         }
+        req.flash("error","You need to be Logged in to do that ");
         res.redirect("/login");
 
     }

@@ -9,6 +9,7 @@ router.get("/", function (req, res) {
 
     Campground.find({}, function (err, campgrounds) {
         if (err) {
+            req.flash("error","Something went Wrong with the database");
             console.log(err);
         }
         else {
@@ -47,7 +48,8 @@ router.post("/",middleware.isLoggedin,function (req, res) {
 
 
 router.get("/:id/edit",middleware.campgroundAuthenticator,(req,res)=>{
-        Campground.findById(req.params.id,(err,campground)=>{            
+        Campground.findById(req.params.id,(err,campground)=>{  
+                 
                 if(campground.author.id.equals(req.user._id)){
                     res.render("campgrounds/edit",{campground});
                 }

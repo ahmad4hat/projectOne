@@ -8,6 +8,7 @@ var passport                = require("passport");
 var User                    = require("./models/user");
 var LocalStrategy           = require("passport-local");
 var methodOverid            = require("method-override");
+var flash                   = require("connect-flash");
 
 
 //requring routes
@@ -28,6 +29,7 @@ app.use(express.static(__dirname+"/public"));
 app.use(methodOverid("_method"));
 
 
+app.use(flash());
 app.use(require("express-session")({
     secret:"reset base stuff",
     resave:false,
@@ -40,14 +42,22 @@ passport.use(new LocalStrategy(User.authenticate()));
 passport.serializeUser(User.serializeUser());
 passport.deserializeUser(User.deserializeUser());   
 
-app.use(function(req,res,next){
-    res.locals.currentUser=req.user;
-    next();
-})
+
+
+
 var bodyParser = require("body-parser");
 app.use(bodyParser.urlencoded({ extended: true }));
 app.set("view engine", "ejs");
 
+
+
+app.use(function(req,res,next){
+    // console.log(req.flash("error"));
+    res.locals.currentUser=req.user;
+    res.locals.error=String(req.flash("error"));
+    res.locals.success=String(req.flash("success"));
+    next();
+})
 app.use("/",indexRoutes);
 app.use("/campgrounds/:id/comments",commentRoutes);
 app.use("/campgrounds",campgroundRoutes);

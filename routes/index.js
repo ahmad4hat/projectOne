@@ -7,37 +7,19 @@ router.get("/", function (req, res) {
 })
 
 
-
-
-
-//==================auth===================
-// User.create({
-//     username :"admin",
-//     password :"4539"
-// },(err,user)=>{
-//     if(err)
-//     {
-//         console.log(err)
-//     }
-//     else
-//     {
-//         console.log(user);
-//     }
-// })
-
 router.get("/register",(req,res)=>{
     res.render("register");
 })
 router.post("/register",(req,res)=>{
     var newUser= new User({username : req.body.username});
-    console.log(newUser+req.body.password);
     User.register(newUser,req.body.password,(err,user)=>{
         if(err)
         {
-            console.log(err);
-            return res.render("register");
+            req.flash("error",String(err));
+            return res.redirect("/register");
         }
         passport.authenticate("local")(req,res,()=>{
+            req.flash("success","Successfully Signned up ,Welcome to yelp camp -"+user.username);
             res.redirect("/campgrounds");
         
         })
@@ -57,6 +39,7 @@ router.post("/login",passport.authenticate("local",{
 
 router.get("/logout",(req,res)=>{
     req.logout();
+    req.flash("success","logged you out");
     res.redirect("/campgrounds");
 })
 module.exports=router;
