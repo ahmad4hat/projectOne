@@ -16,20 +16,10 @@ var commentRoutes           =   require("./routes/comments"),
     campgroundRoutes        =   require("./routes/campgrounds"),
     indexRoutes             =   require("./routes/index");
 
-//seed the database
-//seedDB();
 
 
-// const MongoClient = require('mongodb').MongoClient;
-// const uri = "mongodb+srv://ahmad:<ahmad>@cluster0-cqzn1.mongodb.net/test?retryWrites=true&w=majority";
-// const client = new MongoClient(uri, {  useNewUrlParser: true,
-//         useUnifiedTopology: true,
-//        useFindAndModify:false});
-// client.connect(err => {
-//   const collection = client.db("test").collection("devices");
-//   // perform actions on the collection object
-//   client.close();
-// });
+
+
 var databaseUrl=process.env.DATABASE_STRING || "mongodb://localhost:27017/yelp_camp";
 
 mongoose.connect(databaseUrl, {
