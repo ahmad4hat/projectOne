@@ -20,11 +20,29 @@ var commentRoutes           =   require("./routes/comments"),
 //seedDB();
 
 
-mongoose.connect("mongodb://localhost:27017/yelp_camp", {
+// const MongoClient = require('mongodb').MongoClient;
+// const uri = "mongodb+srv://ahmad:<ahmad>@cluster0-cqzn1.mongodb.net/test?retryWrites=true&w=majority";
+// const client = new MongoClient(uri, {  useNewUrlParser: true,
+//         useUnifiedTopology: true,
+//        useFindAndModify:false});
+// client.connect(err => {
+//   const collection = client.db("test").collection("devices");
+//   // perform actions on the collection object
+//   client.close();
+// });
+
+
+mongoose.connect("mongodb+srv://ahmad:ahmad@cluster0-cqzn1.mongodb.net/test?retryWrites=true&w=majority", {
     useNewUrlParser: true,
     useUnifiedTopology: true,
    useFindAndModify:false
 });
+
+// mongoose.connect("mongodb://localhost:27017/yelp_camp", {
+//     useNewUrlParser: true,
+//     useUnifiedTopology: true,
+//    useFindAndModify:false
+// });
 app.use(express.static(__dirname+"/public"));
 app.use(methodOverid("_method"));
 
@@ -65,3 +83,4 @@ app.use("/campgrounds",campgroundRoutes);
 
 
 app.listen(process.env.PORT,process.env.IP, () => console.log(`Example app listening on port ${process.env.PORT}!`)); 
+// app.listen(3000, () => console.log(`Example app listening on port`)); 
