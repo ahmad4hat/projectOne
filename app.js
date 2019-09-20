@@ -64,8 +64,4 @@ app.use("/campgrounds",campgroundRoutes);
 
 
 
-
-app.listen(3000, function () {
-
-    console.log("yelp camp server is Connected");
-})
+app.listen(process.env.PORT,process.env.IP, () => console.log(`Example app listening on port ${process.env.PORT}!`)); 
