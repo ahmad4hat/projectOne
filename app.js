@@ -30,9 +30,9 @@ var commentRoutes           =   require("./routes/comments"),
 //   // perform actions on the collection object
 //   client.close();
 // });
+var databaseUrl=process.env.DATABASE_STRING || "mongodb://localhost:27017/yelp_camp";
 
-
-mongoose.connect("mongodb+srv://ahmad:ahmad@cluster0-cqzn1.mongodb.net/test?retryWrites=true&w=majority", {
+mongoose.connect(databaseUrl, {
     useNewUrlParser: true,
     useUnifiedTopology: true,
    useFindAndModify:false
@@ -82,5 +82,5 @@ app.use("/campgrounds",campgroundRoutes);
 
 
 
-app.listen(process.env.PORT,process.env.IP, () => console.log(`Example app listening on port ${process.env.PORT}!`)); 
+ app.listen(process.env.PORT || 3000,process.env.IP, () => console.log(`Example app listening on port ${process.env.PORT}!`)); 
 // app.listen(3000, () => console.log(`Example app listening on port`)); 
