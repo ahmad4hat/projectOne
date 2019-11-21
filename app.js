@@ -12,7 +12,7 @@ const flash                   = require("connect-flash");
 
 
 //requring routes
-var commentRoutes           =   require("./routes/comments"),
+const commentRoutes           =   require("./routes/comments"),
     campgroundRoutes        =   require("./routes/campgrounds"),
     indexRoutes             =   require("./routes/index");
 
@@ -20,7 +20,7 @@ var commentRoutes           =   require("./routes/comments"),
 
 
 
-var databaseUrl=process.env.DATABASE_STRING || "mongodb://localhost:27017/yelp_camp";
+const databaseUrl=process.env.DATABASE_STRING || "mongodb://localhost:27017/yelp_camp";
 
 mongoose.connect(databaseUrl, {
     useNewUrlParser: true,

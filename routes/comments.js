@@ -1,9 +1,9 @@
 //comment routes 
-var express=require("express");
-var router = express.Router({mergeParams:true});
-var Campground=require("../models/campground");
-var Comment=require("../models/comment");
-var middleware=require("../middleware");
+const express=require("express");
+const router = express.Router({mergeParams:true});
+const Campground=require("../models/campground");
+const Comment=require("../models/comment");
+let middleware=require("../middleware");
 
 
 router.get("/new",middleware.isLoggedin,(req,res)=>{
@@ -50,7 +50,7 @@ router.post("/",middleware.isLoggedin,(req,res)=>{
                     campground.comments.push(comment);
                     campground.save();
                     console.log(comment);
-                    req.flash("success","Successfull Added Comments");
+                    req.flash("success","Successfully Added Comments");
                     res.redirect("/campgrounds/"+campground._id);
 
                 }
