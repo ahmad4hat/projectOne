@@ -1,14 +1,14 @@
-var express                 = require("express");
-var app                     = express();
-var mongoose                = require("mongoose");
-var Campground              = require("./models/campground") ;
-var seedDB                  = require("./seeds");
-var Comment                 = require("./models/comment");
-var passport                = require("passport");
-var User                    = require("./models/user");
-var LocalStrategy           = require("passport-local");
-var methodOverid            = require("method-override");
-var flash                   = require("connect-flash");
+const express                 = require("express");
+const app                     = express();
+const mongoose                = require("mongoose");
+const Campground              = require("./models/campground") ;
+const seedDB                  = require("./seeds");
+const Comment                 = require("./models/comment");
+const passport                = require("passport");
+const User                    = require("./models/user");
+const LocalStrategy           = require("passport-local");
+const methodOverid            = require("method-override");
+const flash                   = require("connect-flash");
 
 
 //requring routes
